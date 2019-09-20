@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+import { format } from 'date-fns';
 
 import ForecastRow from './ForecastRow';
 
@@ -7,45 +9,40 @@ class WeatherForecast extends React.Component {
 		super(props);
 
 		this.state = {
-			forecasts: [
-				{
-					day: 'Mon',
-					high: '10 c',
-					low: '1 c',
-					time: '08:00',
-				},
-				{
-					day: 'Tus',
-					high: '11 c',
-					low: '2 c',
-					time: '09:00',
-				},
-				{
-					day: 'Wed',
-					high: '12 c',
-					low: '3 c',
-					time: '10:00',
-				},
-			],
+			forecasts: [],
 		};
+	}
+
+	componentDidMount() {
+		axios('https://jr-weather-api.herokuapp.com/api/weather?cc=au&city=brisbane')
+			.then(res => {
+				const forecasts = res.data.data.forecast.slice(0, 10);
+				this.setState({ forecasts });
+			});
 	}
 
 	render() {
 		return (
-			<section class="weather-forecast">
-				<div class="forecast__switch">
-					<button class="forecast__switch_0 switch-active">5 items</button>
-					<button class="forecast__switch_1">10 items</button>
+			<section className="weather-forecast">
+				<div className="forecast__switch">
+					<button className="forecast__switch_0 switch-active">5 items</button>
+					<button className="forecast__switch_1">10 items</button>
 				</div>
-				{this.state.forecasts.map(forecast => (
-					<ForecastRow
-						key={forecast.day + forecast.time}
-						day={forecast.day}
-						high={forecast.high}
-						low={forecast.low}
-						time={forecast.time}
-					/>
-				))}
+				{this.state.forecasts.map(forecast => {
+					const date = new Date(forecast.time);
+					const day = format(date, 'EEE');
+					const time = format(date, 'HH:mm');
+
+					return (
+						<ForecastRow
+							key={forecast.time}
+							day={day}
+							high={forecast.maxCelsius}
+							low={forecast.minCelsius}
+							time={time}
+						/>
+					);
+				})}
 			</section>
 		);
 	}

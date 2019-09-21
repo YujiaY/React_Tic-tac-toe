@@ -14,6 +14,7 @@ class App extends React.Component {
 
 		this.state = {
 			forecasts: [],
+			limit: 5,
 		};
 	}
 
@@ -25,12 +26,20 @@ class App extends React.Component {
 			});
 	}
 
+	handleChangeLimit = limit => {
+		this.setState({ limit });
+	}
+
 	render() {
 		return (
 			<div className="weather-channel__container">
 				<Header />
 				<Navigation />
-				<Main forecasts={this.state.forecasts} />
+				<Main
+					forecasts={this.state.forecasts}
+					handleChangeLimit={this.handleChangeLimit}
+					limit={this.state.limit}
+				/>
 				<Footer />
 			</div>
 		);

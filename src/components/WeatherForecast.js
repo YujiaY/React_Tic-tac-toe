@@ -25,7 +25,7 @@ class WeatherForecast extends React.Component {
 					</button>
 				</div>
 				{forecasts.map(forecast => {
-					const date = new Date(forecast.time);
+					const date = new Date(forecast.time * 1000);
 					const day = format(date, 'EEE');
 					const time = format(date, 'HH:mm');
 

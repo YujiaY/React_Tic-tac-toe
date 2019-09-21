@@ -8,7 +8,7 @@ function WeatherCondition(props) {
 	return (
 		<section className="weather-condition">
 			<div className="weather-condition__location">{props.cityName}</div>
-			<div className="weather-condition__temp">{props.current.maxCelsius} c</div>
+			<div className="weather-condition__temp">{props.current.maxCelsius} {props.unit}</div>
 			<div className="weather-condition__desc">
 				<div>
 					<img src={umberella} />

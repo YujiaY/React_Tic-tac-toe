@@ -5,7 +5,7 @@ import ForecastRow from './ForecastRow';
 
 class WeatherForecast extends React.Component {
 	render() {
-		const { limit } = this.props;
+		const { limit, unit } = this.props;
 		const forecasts = this.props.forecasts.slice(0, limit);
 
 		return (
@@ -36,6 +36,7 @@ class WeatherForecast extends React.Component {
 							high={forecast.maxCelsius}
 							low={forecast.minCelsius}
 							time={time}
+							unit={unit}
 						/>
 					);
 				})}

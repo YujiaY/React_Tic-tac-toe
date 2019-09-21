@@ -1,10 +1,10 @@
 import React from 'react';
-import axios from 'axios';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Main from './components/Main';
 import Navigation from './components/Navigation';
+import { getWeatherFor } from './utils/axios';
 
 import './App.css';
 
@@ -22,14 +22,7 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
-		axios('https://jr-weather-api.herokuapp.com/api/weather?cc=au&city=brisbane')
-			.then(res => {
-				const data = res.data.data;
-				const cityName = data.city.name;
-				const current = data.current;
-				const forecasts = data.forecast.slice(0, 10);
-				this.setState({ cityName, current, forecasts });
-			});
+		getWeatherFor('brisbane').then(this.updateData);
 	}
 
 	handleChangeLimit = limit => {
@@ -40,12 +33,24 @@ class App extends React.Component {
 		this.setState({ input: event.target.value })
 	}
 
+	updateData = data => {
+		const cityName = data.city.name;
+		const current = data.current;
+		const forecasts = data.forecast.slice(0, 10);
+		this.setState({ cityName, current, forecasts });
+	}
+
+	handleSearch = () => {
+		getWeatherFor(this.state.input).then(this.updateData);
+	}
+
 	render() {
 		return (
 			<div className="weather-channel__container">
 				<Header />
 				<Navigation
 					handleInputChange={this.handleInputChange}
+					handleSearch={this.handleSearch}
 					input={this.state.input}
 				/>
 				<Main

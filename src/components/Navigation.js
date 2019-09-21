@@ -1,12 +1,19 @@
 import React from 'react';
 
 function Navigation(props) {
+	const handleKeyPress = event => {
+		if (event.key === 'Enter') {
+			props.handleSearch();
+		}
+	};
+
 	return (
 		<nav>
 		  	<div>
 				<input
 					className="search-input"
 					onChange={props.handleInputChange}
+					onKeyPress={handleKeyPress}
 					value={props.input}
 				/>
 				<button className="search-btn">

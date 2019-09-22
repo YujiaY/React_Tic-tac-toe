@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import compass from '../assets/icons/icon-compass.png';
 import umberella from '../assets/icons/icon-umberella.png';
@@ -27,4 +28,10 @@ function WeatherCondition(props) {
 	);
 }
 
-export default WeatherCondition;
+const mapStateToProps = state => ({
+	unit: state.navigation.unit,
+});
+
+export default connect(
+	mapStateToProps,
+)(WeatherCondition);

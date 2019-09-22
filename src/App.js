@@ -16,9 +16,7 @@ class App extends React.Component {
 			cityName: '',
 			current: {},
 			forecasts: [],
-			input: '',
 			limit: 5,
-			unit: 'c'
 		};
 	}
 
@@ -30,10 +28,6 @@ class App extends React.Component {
 		this.setState({ limit });
 	}
 
-	handleInputChange = event => {
-		this.setState({ input: event.target.value })
-	}
-
 	updateData = data => {
 		const cityName = data.city.name;
 		const current = data.current;
@@ -41,33 +35,17 @@ class App extends React.Component {
 		this.setState({ cityName, current, forecasts });
 	}
 
-	handleSearch = () => {
-		getWeatherFor(this.state.input).then(this.updateData);
-	}
-
-	toggleUnit = () => {
-		const unit = this.state.unit === 'c' ? 'f' : 'c';
-		this.setState({ unit })
-	}
-
 	render() {
 		return (
 			<div className="weather-channel__container">
 				<Header />
-				<Navigation
-					handleInputChange={this.handleInputChange}
-					handleSearch={this.handleSearch}
-					input={this.state.input}
-					toggleUnit={this.toggleUnit}
-					unit={this.state.unit}
-				/>
+				<Navigation />
 				<Main
 					cityName={this.state.cityName}
 					current={this.state.current}
 					forecasts={this.state.forecasts}
 					handleChangeLimit={this.handleChangeLimit}
 					limit={this.state.limit}
-					unit={this.state.unit}
 				/>
 				<Footer />
 			</div>

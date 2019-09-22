@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { format } from 'date-fns';
 
 import ForecastRow from './ForecastRow';
@@ -45,4 +46,10 @@ class WeatherForecast extends React.Component {
 	}
 }
 
-export default WeatherForecast;
+const mapStateToProps = state => ({
+	unit: state.navigation.unit,
+});
+
+export default connect(
+	mapStateToProps,
+)(WeatherForecast);

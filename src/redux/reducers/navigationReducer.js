@@ -3,7 +3,7 @@ const initialState = {
     unit: 'c',
 };
 
-const reducer = (state = initialState, action) => {
+const navigation = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_SEARCH_VALUE':
             return {
@@ -23,3 +23,5 @@ const reducer = (state = initialState, action) => {
           return state
       }
 };
+
+export default navigation;

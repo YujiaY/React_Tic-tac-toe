@@ -1,18 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getWeatherFor } from '../utils/axios';
 import {
+	loadWeather as loadWeatherAction,
 	setSearchValue as setSearchValueAction,
 	toggleUnit as toggleUnitAction,
 } from '../redux/actions/navigationActions';
 
 function Navigation(props) {
 	const handleSearch = () => {
-		getWeatherFor(props.search).then(data => {
-			// TODO: put the data to redux store
-			console.log({ data });
-		})
+		props.loadWeather(props.search);
 	};
 
 	const handleKeyPress = event => {
@@ -51,6 +48,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+	loadWeather: city => dispatch(loadWeatherAction(city)),
 	setSearchValue: value => dispatch(setSearchValueAction(value)),
 	toggleUnit: () => dispatch(toggleUnitAction()),
 });

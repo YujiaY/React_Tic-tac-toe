@@ -1,38 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Main from './components/Main';
 import Navigation from './components/Navigation';
-import { getWeatherFor } from './utils/axios';
+import {
+	loadWeather as loadWeatherAction,
+} from './redux/actions/navigationActions';
 
 import './App.css';
 
 class App extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			cityName: '',
-			current: {},
-			forecasts: [],
-			limit: 5,
-		};
-	}
-
 	componentDidMount() {
-		getWeatherFor('brisbane').then(this.updateData);
-	}
-
-	handleChangeLimit = limit => {
-		this.setState({ limit });
-	}
-
-	updateData = data => {
-		const cityName = data.city.name;
-		const current = data.current;
-		const forecasts = data.forecast.slice(0, 10);
-		this.setState({ cityName, current, forecasts });
+		this.props.loadWeather('Brisbane');
 	}
 
 	render() {
@@ -47,4 +28,11 @@ class App extends React.Component {
 	}
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+	loadWeather: city => dispatch(loadWeatherAction(city)),
+});
+
+export default connect(
+	null,
+	mapDispatchToProps
+)(App);

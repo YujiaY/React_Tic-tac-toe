@@ -8,13 +8,17 @@ const initialState = {
 const weather = (state = initialState, action) => {
     switch (action.type) {
         case 'UPDATE_WEATHER':
-            console.log({ weatherData: action.weatherData })
-            
             return {
                 ...state,
                 cityName: action.weatherData.cityName,
                 current: action.weatherData.current,
                 forecasts: action.weatherData.forecast,
+            };
+
+        case 'CHANGE_LIMIT':
+            return {
+                ...state,
+                limit: action.limit,
             };
 
         default:

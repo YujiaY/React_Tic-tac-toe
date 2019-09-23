@@ -29,6 +29,8 @@ function WeatherCondition(props) {
 }
 
 const mapStateToProps = state => ({
+	cityName: state.weather.cityName,
+	current: state.weather.current,
 	unit: state.navigation.unit,
 });
 

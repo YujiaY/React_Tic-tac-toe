@@ -40,13 +40,7 @@ class App extends React.Component {
 			<div className="weather-channel__container">
 				<Header />
 				<Navigation />
-				<Main
-					cityName={this.state.cityName}
-					current={this.state.current}
-					forecasts={this.state.forecasts}
-					handleChangeLimit={this.handleChangeLimit}
-					limit={this.state.limit}
-				/>
+				<Main />
 				<Footer />
 			</div>
 		);

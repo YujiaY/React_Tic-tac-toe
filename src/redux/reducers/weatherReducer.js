@@ -14,7 +14,7 @@ const weather = (state = initialState, action) => {
                 ...state,
                 cityName: action.weatherData.cityName,
                 current: action.weatherData.current,
-                forecasts: action.weatherData.forecasts,
+                forecasts: action.weatherData.forecast,
             };
 
         default:

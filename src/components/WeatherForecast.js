@@ -35,8 +35,8 @@ class WeatherForecast extends React.Component {
 						<ForecastRow
 							key={forecast.time}
 							day={day}
-							high={forecast.maxCelsius}
-							low={forecast.minCelsius}
+							high={unit === 'c' ? forecast.maxCelsius : forecast.maxFahrenheit}
+							low={unit === 'c' ? forecast.minCelsius : forecast.minFahrenheit}
 							time={time}
 							unit={unit}
 						/>

@@ -16,23 +16,34 @@ class App extends React.Component {
 		this.props.loadWeather('Brisbane');
 	}
 
+	renderMain() {
+		if (this.props.hasError) return "Something went wrong...";
+
+		return <Main />;
+	}
+
 	render() {
 		return (
 			<div className="weather-channel__container">
 				<Header />
 				<Navigation />
-				<Main />
+				{this.props.isLoadingWeather ? "Loading..." : this.renderMain()}
 				<Footer />
 			</div>
 		);
 	}
 }
 
+const mapStateToProps = state => ({
+	hasError: !!state.weather.error,
+	isLoadingWeather: state.weather.isLoading,
+});
+
 const mapDispatchToProps = dispatch => ({
 	loadWeather: city => dispatch(loadWeatherAction(city)),
 });
 
 export default connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(App);

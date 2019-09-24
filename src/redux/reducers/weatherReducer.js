@@ -1,19 +1,36 @@
 const initialState = {
     cityName: '',
     current: {},
+    error: null,
     forecasts: [],
+    isLoading: false,
     limit: 5,
 };
 
 const weather = (state = initialState, action) => {
     switch (action.type) {
-        case 'UPDATE_WEATHER':
+        case 'FETCH_WEATHER':
+            return {
+                ...state,
+                error: null,
+                isLoading: true,
+            };
+
+        case 'FETCH_WEATHER_SUCCESS':
             return {
                 ...state,
                 cityName: action.weatherData.cityName,
                 current: action.weatherData.current,
                 forecasts: action.weatherData.forecast,
+                isLoading: false,
             };
+
+        case 'FETCH_WEATHER_FAILURE':
+            return {
+                ...state,
+                error: action.error,
+                isLoading: false,
+            };   
 
         case 'CHANGE_LIMIT':
             return {

@@ -1,5 +1,9 @@
 import { getWeatherFor } from '../../utils/axios';
-import { updateWeather } from './weatherActions';
+import {
+    fetchWeather,
+    fetchWeatherFailure,
+    fetchWeatherSuccess,
+} from './weatherActions';
 
 export const setSearchValue = value => ({
     value,
@@ -11,6 +15,9 @@ export const toggleUnit = () => ({
 });
 
 export const loadWeather = city => (dispatch, getState) => {
+    dispatch(fetchWeather());
+
     return getWeatherFor(city)
-        .then(data => dispatch(updateWeather(data)));
+        .then(data => dispatch(fetchWeatherSuccess(data)))
+        .catch(error => dispatch(fetchWeatherFailure(error)));
 };

@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Error from './components/Error';
 import Footer from './components/Footer';
 import Header from './components/Header';
+import Loader from './components/Loader';
 import Main from './components/Main';
 import Navigation from './components/Navigation';
 import {
@@ -17,7 +19,7 @@ class App extends React.Component {
 	}
 
 	renderMain() {
-		if (this.props.hasError) return "Something went wrong...";
+		if (this.props.hasError) return <Error />;
 
 		return <Main />;
 	}
@@ -27,7 +29,7 @@ class App extends React.Component {
 			<div className="weather-channel__container">
 				<Header />
 				<Navigation />
-				{this.props.isLoadingWeather ? "Loading..." : this.renderMain()}
+				{this.props.isLoadingWeather ? <Loader /> : this.renderMain()}
 				<Footer />
 			</div>
 		);

@@ -17,9 +17,10 @@ const weather = (state = initialState, action) => {
             };
 
         case 'FETCH_WEATHER_SUCCESS':
+            console.log(action)
             return {
                 ...state,
-                cityName: action.weatherData.cityName,
+                cityName: action.weatherData.city.name,
                 current: action.weatherData.current,
                 forecasts: action.weatherData.forecast,
                 isLoading: false,
